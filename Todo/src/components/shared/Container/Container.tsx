@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { styles } from './Container.styles';
 
 type Props = {
@@ -7,7 +7,11 @@ type Props = {
 }
 
 const Container = ({ children }: Props) => {
-    return <View style={styles.container}>{children}</View>
+    return (
+        <SafeAreaView style={styles.root}>
+            <View style={styles.container}>{children}</View>
+        </SafeAreaView>
+    )
 };
 
 export default Container;
