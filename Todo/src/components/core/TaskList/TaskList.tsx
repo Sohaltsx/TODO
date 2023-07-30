@@ -1,28 +1,26 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, SectionList, Text, View } from 'react-native';
 import { styles } from './TaskList.styles';
 import { TaskItem } from './components';
-import { TASK } from '../../../interfaces';
+import { SECTIONS, TASK } from '../../../interfaces';
 
 type Props = {
-    data: TASK[];
+    data: SECTIONS[];
     deleteTask: (id: string) => void;
 }
 
 const TaskList = ({ data, deleteTask }: Props) => {
     return (
-        <FlatList
+        <SectionList
             style={styles.list}
-            data={data}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => {
-                return (
-                    <TaskItem
-                        task={item}
-                        deleteTask={(id: string) => deleteTask(id)} />
-                )
-            }
-            }
+            sections={data}
+            keyExtractor={(item, index) => item.id + index}
+            renderSectionHeader={({ section }: any) => (<Text style={styles.section}>{section.title}</Text>)}
+            renderItem={({ item }) => (
+                <TaskItem
+                    task={item}
+                    deleteTask={(id: string) => deleteTask(id)} />
+            )}
         />
     )
 };
